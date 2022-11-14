@@ -10,9 +10,12 @@ public class Main {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
             JOptionPane.showMessageDialog(null, "La conexión si funciona :)");
             ps = con.prepareStatement(consulta);
-            ps.setString(1, "Harry Potter");
-            ps.setString(2, "Sergio");
-            ps.setString(3, "12/09/1994");
+            String nombre = JOptionPane.showInputDialog(null, "Introduzca el nombre del libro");
+            ps.setString(1, nombre);
+            String autor = JOptionPane.showInputDialog(null, "Introduzca el nombre del autor");
+            ps.setString(2, autor);
+            String fechapublicacion = JOptionPane.showInputDialog(null, "Introduzca la fecha de publicación");
+            ps.setString(3, fechapublicacion);
             ps.execute();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "La conexión no funciona :(");
