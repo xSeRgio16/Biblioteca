@@ -4,35 +4,62 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         Connection con;
-        String consulta = "INSERT INTO libros VALUES (null,?,?,?)";
+        String insert = "INSERT INTO libros VALUES (null,?,?,?)";
         String select = "SELECT * FROM libros";
-        String delete = "DELETE FROM libros WHERE nombre=?";
-        PreparedStatement psc, pss, psd;
-        ResultSet rs = null;
-        String campo;
+        String delete = "DELETE FROM libros WHERE id = ?";
+        PreparedStatement psi, pss, psd;
+        ResultSet rs;
+        int campo;
+        boolean flag;
+        int count;
+
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
             JOptionPane.showMessageDialog(null, "La conexión si funciona :)");
-            psc = con.prepareStatement(consulta);
+            //INSERT
+            psi = con.prepareStatement(insert);
             String nombre = JOptionPane.showInputDialog(null, "Introduzca el nombre del libro");
-            psc.setString(1, nombre);
+            psi.setString(1, nombre);
             String autor = JOptionPane.showInputDialog(null, "Introduzca el nombre del autor");
-            psc.setString(2, autor);
+            psi.setString(2, autor);
             String fechapublicacion = JOptionPane.showInputDialog(null, "Introduzca la fecha de publicación");
-            psc.setString(3, fechapublicacion);
-            psc.execute();
+            psi.setString(3, fechapublicacion);
+            psi.execute();
+            //SELECT
             pss = con.prepareStatement(select);
             rs = pss.executeQuery();
             while (rs.next()) {
-                String nombre2 = rs.getString("Nombre");
-                String autor2 = rs.getString("Autor");
-                String fechapublicacion2 = rs.getString("Fecha_publicacion");
+                int id = rs.getInt("id");
+                String nombre2 = rs.getString("nombre");
+                String autor2 = rs.getString("autor");
+                String fechapublicacion2 = rs.getString("fecha_publicacion");
+                System.out.print(" | " + id);
                 System.out.print(" | " + nombre2);
                 System.out.print(" | " + autor2);
                 System.out.print(" | " + fechapublicacion2);
                 System.out.println();
             }
+            //DELETE
             psd = con.prepareStatement(delete);
+            do {
+                try {
+                    String x = JOptionPane.showInputDialog(null, "Introduce el número del libro que quieras eliminar");
+                    campo = Integer.parseInt(x);
+                    psd.setInt(1, campo);
+                    count = psd.executeUpdate();
+                    if (count > 0) {
+                        psd.execute();
+                        flag = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Esa ID no corresponde a ningún libro");
+                        flag = false;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "El valor introducido es incorrecto");
+                    flag = false;
+                }
+            } while (!flag);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "La conexión no funciona :(");
         }
