@@ -88,18 +88,6 @@ public class Main {
                                         System.out.print(" | " + editorial2 + " | ");
                                         System.out.println();
                                     }
-                                    System.out.println("Introduce el nuevo nombre");
-                                    String nombre3 = sc.nextLine();
-                                    psu.setString(1, nombre3);
-                                    System.out.println("Introduce el nuevo autor");
-                                    String autor3 = sc.nextLine();
-                                    psu.setString(2, autor3);
-                                    System.out.println("Introduce la nueva fecha de publicación");
-                                    String fechapublicacion3 = sc.nextLine();
-                                    psu.setString(3, fechapublicacion3);
-                                    System.out.println("Introduce la nueva editorial");
-                                    String editorial3 = sc.nextLine();
-                                    psu.setString(4, editorial3);
                                     do {
                                         System.out.println("Introduce el ID del libro a modificar");
                                         String y = sc.nextLine();
@@ -116,6 +104,18 @@ public class Main {
                                             validar = true;
                                         }
                                     } while (validar);
+                                    System.out.println("Introduce el nuevo nombre");
+                                    String nombre3 = sc.nextLine();
+                                    psu.setString(1, nombre3);
+                                    System.out.println("Introduce el nuevo autor");
+                                    String autor3 = sc.nextLine();
+                                    psu.setString(2, autor3);
+                                    System.out.println("Introduce la nueva fecha de publicación");
+                                    String fechapublicacion3 = sc.nextLine();
+                                    psu.setString(3, fechapublicacion3);
+                                    System.out.println("Introduce la nueva editorial");
+                                    String editorial3 = sc.nextLine();
+                                    psu.setString(4, editorial3);
                                     validar = true;
                                 } catch (Exception e) {
                                     System.out.println("ERROR, inténtalo de nuevo");
